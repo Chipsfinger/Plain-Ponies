@@ -1,5 +1,6 @@
 let loop;
 let fps = 60;
+let cnv, ctx;
 
 window.onload = function () {
         console.log('Gameloop');
