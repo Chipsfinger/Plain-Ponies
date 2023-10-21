@@ -38,6 +38,7 @@ window.onload = function () {
         console.log('Gameloop');
         prepareCanvas();
         ball.init(canvas_);
+        prepareKeyboardInput();
         loop = setInterval (() =>  {
             update();
             render();
@@ -58,13 +59,19 @@ function prepareCanvas() {
     canvas_.height = window.innerHeight;
 }
 
+function prepareKeyboardInput() {
+    document.addEventListener('mousedown', (event) => {
+        console.log('click');
+        ball.xvel = -ball.xvel;
+    },false);
+}
+
+
 function update () {
-    console.log('updating');
     ball.update(canvas_);
 }
 
 function render () {
-    console.log('rendering');
     fillCanvas ();
     ball.draw(ctx);
 }
