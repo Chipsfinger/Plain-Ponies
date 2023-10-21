@@ -12,10 +12,10 @@ let ball = {
         this.xpos = ( canvas_.width - this.size) / 2;
         this.ypos = ( canvas_.height - this.size) / 2;
     },
-    update : function(){
+    update : function(canvas_) {
         this.xpos += this.xvel;
         this.ypos += this.yvel;
-
+        this.checkForCollisions(canvas_);
     },
     draw : function(ctx) {
         ctx.fillStyle = this.color;
@@ -23,6 +23,15 @@ let ball = {
         ctx.arc(this.xpos,this.ypos,this.size, 0,Math.PI*2, true);
         ctx.fill();
     },
+    checkForCollisions : function(canvas_) {
+        console.log('collision');
+        if (this.xpos + this.size /2 > canvas_.width || this.xpos - this.size / 2 < 0 ){
+            this.xvel = -this.xvel;
+        }
+        if (this.ypos + this.size / 2 > canvas_.height || this.ypos - this.size / 2 < 0){
+            this.yvel = -this.yvel;
+        }
+    }
 }
 
 window.onload = function () {
@@ -51,7 +60,7 @@ function prepareCanvas() {
 
 function update () {
     console.log('updating');
-    ball.update();
+    ball.update(canvas_);
 }
 
 function render () {
