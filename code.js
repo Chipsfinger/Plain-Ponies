@@ -1,10 +1,34 @@
 let loop;
 let fps = 60;
 let canvas_, ctx;
+let ball = {
+    xpos : 0,
+    ypos : 0,
+    xvel : 5,
+    yvel : 5,
+    size : 30,
+    color : 'white',
+    init : function(canvas_) {
+        this.xpos = ( canvas_.width - this.size) / 2;
+        this.ypos = ( canvas_.height - this.size) / 2;
+    },
+    update : function(){
+        this.xpos += this.xvel;
+        this.ypos += this.yvel;
+
+    },
+    draw : function(ctx) {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.xpos,this.ypos,this.size, 0,Math.PI*2, true);
+        ctx.fill();
+    },
+}
 
 window.onload = function () {
         console.log('Gameloop');
         prepareCanvas();
+        ball.init(canvas_);
         loop = setInterval (() =>  {
             update();
             render();
@@ -27,9 +51,11 @@ function prepareCanvas() {
 
 function update () {
     console.log('updating');
+    ball.update();
 }
 
 function render () {
     console.log('rendering');
     fillCanvas ();
+    ball.draw(ctx);
 }
